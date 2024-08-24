@@ -57,6 +57,7 @@ type Config struct {
 	NeedsStackObjects  bool
 	Debug              bool // Whether to emit debug information in the LLVM module.
 	PanicStrategy      string
+	RelaxWasmImports   bool
 }
 
 // compilerContext contains function-independent data that should still be

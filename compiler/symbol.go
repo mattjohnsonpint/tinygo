@@ -358,6 +358,10 @@ func (c *compilerContext) checkWasmImport(f *ssa.Function, pragma string) {
 		c.addError(f.Pos(), "can only use //go:wasmimport on declarations")
 		return
 	}
+	if c.Config.RelaxWasmImports {
+		// Relax the signature and type restrictions when requested.
+		return
+	}
 	if f.Signature.Results().Len() > 1 {
 		c.addError(f.Signature.Results().At(1).Pos(), fmt.Sprintf("%s: too many return values", pragma))
 	} else if f.Signature.Results().Len() == 1 {

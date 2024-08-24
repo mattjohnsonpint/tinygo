@@ -235,6 +235,7 @@ func testCompilePackage(t *testing.T, options *compileopts.Options, file string)
 		AutomaticStackSize: config.AutomaticStackSize(),
 		DefaultStackSize:   config.StackSize(),
 		NeedsStackObjects:  config.NeedsStackObjects(),
+		RelaxWasmImports:   config.Options.RelaxWasmImports,
 	}
 	machine, err := NewTargetMachine(compilerConfig)
 	if err != nil {

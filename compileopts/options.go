@@ -20,42 +20,43 @@ var (
 // usually passed from the command line, but can also be passed in environment
 // variables for example.
 type Options struct {
-	GOOS            string // environment variable
-	GOARCH          string // environment variable
-	GOARM           string // environment variable (only used with GOARCH=arm)
-	GOMIPS          string // environment variable (only used with GOARCH=mips and GOARCH=mipsle)
-	Directory       string // working dir, leave it unset to use the current working dir
-	Target          string
-	Opt             string
-	GC              string
-	PanicStrategy   string
-	Scheduler       string
-	StackSize       uint64 // goroutine stack size (if none could be automatically determined)
-	Serial          string
-	Work            bool // -work flag to print temporary build directory
-	InterpTimeout   time.Duration
-	PrintIR         bool
-	DumpSSA         bool
-	VerifyIR        bool
-	SkipDWARF       bool
-	PrintCommands   func(cmd string, args ...string) `json:"-"`
-	Semaphore       chan struct{}                    `json:"-"` // -p flag controls cap
-	Debug           bool
-	PrintSizes      string
-	PrintAllocs     *regexp.Regexp // regexp string
-	PrintStacks     bool
-	Tags            []string
-	GlobalValues    map[string]map[string]string // map[pkgpath]map[varname]value
-	TestConfig      TestConfig
-	Programmer      string
-	OpenOCDCommands []string
-	LLVMFeatures    string
-	PrintJSON       bool
-	Monitor         bool
-	BaudRate        int
-	Timeout         time.Duration
-	WITPackage      string // pass through to wasm-tools component embed invocation
-	WITWorld        string // pass through to wasm-tools component embed -w option
+	GOOS             string // environment variable
+	GOARCH           string // environment variable
+	GOARM            string // environment variable (only used with GOARCH=arm)
+	GOMIPS           string // environment variable (only used with GOARCH=mips and GOARCH=mipsle)
+	Directory        string // working dir, leave it unset to use the current working dir
+	Target           string
+	Opt              string
+	GC               string
+	PanicStrategy    string
+	Scheduler        string
+	StackSize        uint64 // goroutine stack size (if none could be automatically determined)
+	Serial           string
+	Work             bool // -work flag to print temporary build directory
+	InterpTimeout    time.Duration
+	PrintIR          bool
+	DumpSSA          bool
+	VerifyIR         bool
+	SkipDWARF        bool
+	PrintCommands    func(cmd string, args ...string) `json:"-"`
+	Semaphore        chan struct{}                    `json:"-"` // -p flag controls cap
+	Debug            bool
+	PrintSizes       string
+	PrintAllocs      *regexp.Regexp // regexp string
+	PrintStacks      bool
+	Tags             []string
+	GlobalValues     map[string]map[string]string // map[pkgpath]map[varname]value
+	TestConfig       TestConfig
+	Programmer       string
+	OpenOCDCommands  []string
+	LLVMFeatures     string
+	PrintJSON        bool
+	Monitor          bool
+	BaudRate         int
+	Timeout          time.Duration
+	WITPackage       string // pass through to wasm-tools component embed invocation
+	WITWorld         string // pass through to wasm-tools component embed -w option
+	RelaxWasmImports bool
 }
 
 // Verify performs a validation on the given options, raising an error if options are not valid.

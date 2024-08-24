@@ -209,6 +209,7 @@ func Build(pkgName, outpath, tmpdir string, config *compileopts.Config) (BuildRe
 		NeedsStackObjects:  config.NeedsStackObjects(),
 		Debug:              !config.Options.SkipDWARF, // emit DWARF except when -internal-nodwarf is passed
 		PanicStrategy:      config.PanicStrategy(),
+		RelaxWasmImports:   config.Options.RelaxWasmImports,
 	}
 
 	// Load the target machine, which is the LLVM object that contains all

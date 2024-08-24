@@ -1447,6 +1447,11 @@ func main() {
 		flag.StringVar(&witWorld, "wit-world", "", "wit world for wasm component embedding")
 	}
 
+	var relaxWasmImports bool
+	if command == "help" || command == "build" || command == "test" || command == "run" {
+		flag.BoolVar(&relaxWasmImports, "relax-wasm-imports", false, "relax restrictions on WebAssembly imports")
+	}
+
 	var testConfig compileopts.TestConfig
 	if command == "help" || command == "test" {
 		flag.BoolVar(&testConfig.CompileOnly, "c", false, "compile the test binary but do not run it")
@@ -1496,40 +1501,41 @@ func main() {
 	}
 
 	options := &compileopts.Options{
-		GOOS:            goenv.Get("GOOS"),
-		GOARCH:          goenv.Get("GOARCH"),
-		GOARM:           goenv.Get("GOARM"),
-		GOMIPS:          goenv.Get("GOMIPS"),
-		Target:          *target,
-		StackSize:       stackSize,
-		Opt:             *opt,
-		GC:              *gc,
-		PanicStrategy:   *panicStrategy,
-		Scheduler:       *scheduler,
-		Serial:          *serial,
-		Work:            *work,
-		InterpTimeout:   *interpTimeout,
-		PrintIR:         *printIR,
-		DumpSSA:         *dumpSSA,
-		VerifyIR:        *verifyIR,
-		SkipDWARF:       *skipDwarf,
-		Semaphore:       make(chan struct{}, *parallelism),
-		Debug:           !*nodebug,
-		PrintSizes:      *printSize,
-		PrintStacks:     *printStacks,
-		PrintAllocs:     printAllocs,
-		Tags:            []string(tags),
-		TestConfig:      testConfig,
-		GlobalValues:    globalVarValues,
-		Programmer:      *programmer,
-		OpenOCDCommands: ocdCommands,
-		LLVMFeatures:    *llvmFeatures,
-		PrintJSON:       flagJSON,
-		Monitor:         *monitor,
-		BaudRate:        *baudrate,
-		Timeout:         *timeout,
-		WITPackage:      witPackage,
-		WITWorld:        witWorld,
+		GOOS:             goenv.Get("GOOS"),
+		GOARCH:           goenv.Get("GOARCH"),
+		GOARM:            goenv.Get("GOARM"),
+		GOMIPS:           goenv.Get("GOMIPS"),
+		Target:           *target,
+		StackSize:        stackSize,
+		Opt:              *opt,
+		GC:               *gc,
+		PanicStrategy:    *panicStrategy,
+		Scheduler:        *scheduler,
+		Serial:           *serial,
+		Work:             *work,
+		InterpTimeout:    *interpTimeout,
+		PrintIR:          *printIR,
+		DumpSSA:          *dumpSSA,
+		VerifyIR:         *verifyIR,
+		SkipDWARF:        *skipDwarf,
+		Semaphore:        make(chan struct{}, *parallelism),
+		Debug:            !*nodebug,
+		PrintSizes:       *printSize,
+		PrintStacks:      *printStacks,
+		PrintAllocs:      printAllocs,
+		Tags:             []string(tags),
+		TestConfig:       testConfig,
+		GlobalValues:     globalVarValues,
+		Programmer:       *programmer,
+		OpenOCDCommands:  ocdCommands,
+		LLVMFeatures:     *llvmFeatures,
+		PrintJSON:        flagJSON,
+		Monitor:          *monitor,
+		BaudRate:         *baudrate,
+		Timeout:          *timeout,
+		WITPackage:       witPackage,
+		WITWorld:         witWorld,
+		RelaxWasmImports: relaxWasmImports,
 	}
 	if *printCommands {
 		options.PrintCommands = printCommand
